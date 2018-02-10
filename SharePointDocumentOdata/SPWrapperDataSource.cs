@@ -38,6 +38,7 @@ namespace SharePointDocumentOdata
             var username = ConfigurationManager.AppSettings["SpUsername"];
             var password = ConfigurationManager.AppSettings["SpPassword"];
             var SpUrl = ConfigurationManager.AppSettings["SpUrl"];
+            var SpDocLib = ConfigurationManager.AppSettings["SpDocLib"];
 
             using (var siteContext = new ClientContext(SpUrl))
             {
@@ -45,7 +46,7 @@ namespace SharePointDocumentOdata
                 var rootWeb = siteContext.Site.RootWeb;
                 siteContext.Load(rootWeb);
                 siteContext.ExecuteQuery();
-                var orderList = siteContext.Web.Lists.GetByTitle("ContractType");
+                var orderList = siteContext.Web.Lists.GetByTitle(SpDocLib);
                 var listItems = orderList.GetItems(new CamlQuery());
                 siteContext.Load(listItems);
                 siteContext.ExecuteQuery();
